@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import Shoectx from '../store/shoectx'
 
 const CartItem = (props) => {
-    console.log(props)
     return (
         <tr>
             <th scope="row">{props.item.shoename}</th>
@@ -19,7 +18,7 @@ const CartItem = (props) => {
 
 const CartPage = (props) => {
     const ctx = useContext(Shoectx)
-    console.log(ctx.totalamount)
+    
     return (
         <div onClick={props.cartHandler} className='w-100 h-100 position-absolute top-0 start-0 bg-dark bg-opacity-10 d-flex justify-content-center align-items-center'>
             <div onClick={event => event.stopPropagation()}>

@@ -11,6 +11,7 @@ const Form = () => {
 
     const ctx = useContext(Shoectx)
 
+
     const formHandler = (event) => {
         event.preventDefault()
 
@@ -22,11 +23,27 @@ const Form = () => {
             sizem: +sizemRef.current.value,
             sizes: +sizesRef.current.value,
         }
-        ctx.addproduct(item)
+
+        fetch(`${ctx.crudurl}/products`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(item),
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(d => {
+                ctx.addproduct(d)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
     }
 
     return (
-        <form onClick={(event)=>event.stopPropagation()} className="d-flex justify-content-center align-items-end gap-1 text-center p-2 w-75 m-auto" onSubmit={formHandler}>
+        <form onClick={(event) => event.stopPropagation()} className="d-flex justify-content-center align-items-end gap-1 text-center p-2 w-75 m-auto" onSubmit={formHandler}>
             <div className="d-flex flex-column gap-1">
                 <label htmlFor="" className="form-label">Shoe Name</label>
                 <input ref={nameRef} type="text" className="form-control" name="" id="" />
